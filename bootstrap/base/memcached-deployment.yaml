@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memcached
+  namespace: flux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: memcached
+  template:
+    metadata:
+      labels:
+        name: memcached
+    spec:
+      containers:
+        - args:
+            - -m 512
+            - -I 5m
+            - -p 11211
+          image: memcached:1.5.20
+          imagePullPolicy: IfNotPresent
+          name: memcached
+          ports:
+            - containerPort: 11211
+              name: clients
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsGroup: 11211
+            runAsUser: 11211
+      nodeSelector:
+        beta.kubernetes.io/os: linux

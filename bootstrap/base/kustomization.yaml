@@ -1,2 +1,9 @@
 resources:
-  - manifests.yaml
+  - namespace.yaml
+  - service-account.yaml
+  - clusterrole.yaml
+  - clusterrolebinding.yaml
+  - secret.yaml
+  - memcached-service.yaml
+  - flux-deployment.yaml
+  - memcached-deployment.yaml
