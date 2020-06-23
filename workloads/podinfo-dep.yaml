@@ -8,11 +8,8 @@ metadata:
     app: podinfo
   annotations:
     fluxcd.io/automated: "true"
-    fluxcd.io/tag.init: glob:1.4.*
-    fluxcd.io/tag.podinfod: glob:1.4.*
-    fluxcd.io/locked_msg: 1.4.2 does not work for us
-    fluxcd.io/locked_user: Andrew Jeffery <dev@jeffas.io>
-    fluxcd.io/locked: 'true'
+    fluxcd.io/tag.init: glob:1.*
+    fluxcd.io/tag.podinfod: glob:1.*
 spec:
   strategy:
     rollingUpdate:
@@ -30,51 +27,51 @@ spec:
         app: podinfo
     spec:
       initContainers:
-      - name: init
-        image: alpine:3.10
-        command:
-        - sleep
-        - "1"
+        - name: init
+          image: alpine:3.10
+          command:
+            - sleep
+            - "1"
       containers:
-      - name: podinfod
-        image: stefanprodan/podinfo:1.4.1
-        imagePullPolicy: IfNotPresent
-        ports:
-        - name: http
-          containerPort: 9898
-          protocol: TCP
-        - name: http-metrics
-          containerPort: 9797
-          protocol: TCP
-        - name: grpc
-          containerPort: 9999
-          protocol: TCP
-        command:
-        - ./podinfo
-        - --port=9898
-        - --port-metrics=9797
-        - --grpc-port=9999
-        - --grpc-service-name=podinfo
-        - --level=info
-        - --random-delay=false
-        - --random-error=false
-        env:
-        - name: PODINFO_UI_COLOR
-          value: "#34577c"
-        - name: PODINFO_UI_MESSAGE
-          value: Welcome to fluxcd
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 9898
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 9898
-        resources:
-          limits:
-            cpu: 1000m
-            memory: 128Mi
-          requests:
-            cpu: 10m
-            memory: 64Mi
+        - name: podinfod
+          image: stefanprodan/podinfo:1.4.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9898
+              protocol: TCP
+            - name: http-metrics
+              containerPort: 9797
+              protocol: TCP
+            - name: grpc
+              containerPort: 9999
+              protocol: TCP
+          command:
+            - ./podinfo
+            - --port=9898
+            - --port-metrics=9797
+            - --grpc-port=9999
+            - --grpc-service-name=podinfo
+            - --level=info
+            - --random-delay=false
+            - --random-error=false
+          env:
+            - name: PODINFO_UI_COLOR
+              value: "#34577c"
+            - name: PODINFO_UI_MESSAGE
+              value: Welcome to fluxcd
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9898
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 9898
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
