@@ -6,3 +6,11 @@ metadata:
     fluxcd.io/automated: "true"
   name: memcached
   namespace: flux
+spec:
+  template:
+    spec:
+      $setElementOrder/containers:
+      - name: memcached
+      containers:
+      - image: memcached:1-alpine
+        name: memcached
