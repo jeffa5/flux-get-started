@@ -10,11 +10,11 @@ spec:
         - name: flux
           args:
             - --manifest-generation=true
-            - --memcached-hostname=memcached.flux
-            - --memcached-service=
+            # - --memcached-hostname=memcached.flux
+            # - --memcached-service=
             - --ssh-keygen-dir=/var/fluxd/keygen
             - --git-branch=master
-            - --git-path=namespaces,workloads
+            - --git-path=bootstrap/live
             - --git-user=jeffa5
             - --git-email=jeffa5@users.noreply.github.com
             - --git-url=git@github.com:jeffa5/flux-get-started
