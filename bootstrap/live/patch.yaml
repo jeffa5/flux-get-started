@@ -14,7 +14,7 @@ spec:
             - --memcached-service=
             - --ssh-keygen-dir=/var/fluxd/keygen
             - --git-branch=master
-            - --git-path=bootstrap/live
+            - --git-path=bootstrap/live,deploy/staging
             - --git-user=jeffa5
             - --git-email=jeffa5@users.noreply.github.com
             - --git-url=git@github.com:jeffa5/flux-get-started
